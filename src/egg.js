@@ -1,7 +1,8 @@
 import * as THREE from "three";
+
 import fragment from "./shader/fragment.glsl";
-import vertex from "./shader/vertex.glsl";
-import "./lib/gltfloader";
+import vertex from "./shader/vertexEgg.glsl";
+require("./lib/gltfloader");
 import "./lib/draco";
 import "./lib/BufferUtils";
 
@@ -67,6 +68,7 @@ export default class Sketch {
     this.targetmouseX = 0;
     this.targetmouseY = 0;
     this.renderer.setSize(this.width, this.height);
+
     this.container.appendChild(this.renderer.domElement);
 
     this.camera = new THREE.PerspectiveCamera(
@@ -108,11 +110,12 @@ export default class Sketch {
     this.voron = [];
 
     this.loader.load(
-      "ico-more.glb",
+      "egg-thick.glb",
       function(gltf) {
+        var bbox = new THREE.Box3().setFromObject(gltf.scene);
+
         gltf.scene.traverse(function(child) {
           if (child.name === "Voronoi_Fracture") {
-            that.obj = child;
             if (child.children[0].children.length > 2) {
               child.children.forEach(f => {
                 f.children.forEach(m => {
@@ -152,16 +155,17 @@ export default class Sketch {
           that.geoms,
           false
         );
-
-        that.mesh = new THREE.Mesh(s, that.material);
-        that.scene.add(that.mesh);
+        let mesh = new THREE.Mesh(s, that.material);
+        mesh.frustumCulled = false;
+        that.scene.add(mesh);
 
         let s1 = THREE.BufferGeometryUtils.mergeBufferGeometries(
           that.geoms1,
           false
         );
-        that.mesh1 = new THREE.Mesh(s1, that.material1);
-        that.scene.add(that.mesh1);
+        let mesh1 = new THREE.Mesh(s1, that.material1);
+        mesh1.frustumCulled = false;
+        that.scene.add(mesh1);
         that.onLoad();
       },
       undefined,
@@ -174,18 +178,24 @@ export default class Sketch {
   processSurface(v, j) {
     let c = v.position;
     let vtemp, vtemp1;
+
     vtemp = v.children[0].geometry.clone();
+    vtemp = vtemp.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
     vtemp = vtemp.applyMatrix(
       new THREE.Matrix4().makeTranslation(c.x, c.y, c.z)
     );
+
     vtemp1 = v.children[1].geometry;
+    vtemp1 = vtemp1.applyMatrix(
+      new THREE.Matrix4().makeRotationX(-Math.PI / 2)
+    );
     vtemp1 = vtemp1
       .clone()
       .applyMatrix(new THREE.Matrix4().makeTranslation(c.x, c.y, c.z));
 
     let len = v.children[0].geometry.attributes.position.array.length / 3;
     let len1 = v.children[1].geometry.attributes.position.array.length / 3;
-    //  id
+
     let offset = new Array(len).fill(j / 100);
     vtemp.addAttribute(
       "offset",
@@ -211,6 +221,7 @@ export default class Sketch {
       "axis",
       new THREE.BufferAttribute(new Float32Array(axes), 3)
     );
+
     for (let i = 0; i < len1 * 3; i = i + 3) {
       axes1[i] = axis.x;
       axes1[i + 1] = axis.y;
@@ -290,7 +301,7 @@ export default class Sketch {
         inside: { type: "f", value: 0 },
         surfaceColor: { type: "v3", value: this.surfaceColor },
         insideColor: { type: "v3", value: this.insideColor },
-        // matcap: { type: 't', value: new THREE.TextureLoader().load('img/matcap.jpg') },
+
         tCube: { value: that.textureCube },
         pixels: {
           type: "v2",
@@ -316,3 +327,5 @@ export default class Sketch {
     this.render();
   }
 }
+
+// new Sketch('container');

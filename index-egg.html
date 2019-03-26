@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Exploding 3D Objects | Egg | Codrops</title>
+		<meta name="description" content="A set of 3D objects made with WebGL that fly into pieces." />
+		<meta name="keywords" content="webgl, 3d, objects, exploding, shatter, fragment, animation, template, javascript" />
+		<meta name="author" content="Codrops" />
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="https://use.typekit.net/tsb3xby.css">
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+		<!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
+	</head>
+	<body class="demo-egg loading">
+		<main><div id="container"></div>
+			<div class="frame">
+				<div class="frame__deco"></div>
+				<div class="frame__title-wrap">
+					<h1 class="frame__title">Exploding 3D Objects</h1>
+					<div class="frame__links">
+						<a href="https://tympanus.net/Development/SVGImageHover/">Previous Demo</a>
+						<a href="https://tympanus.net/codrops/?p=39110">Article</a>
+						<a href="https://github.com/akella/breakitall">GitHub</a>
+					</div>
+				</div>
+				<p class="frame__credits">Inspired by <a href="https://dribbble.com/shots/6019111-Kubrick-Life-Website-3D-Motion">Kubrick Life Website: 3D Motion</a></p>
+				<div class="frame__demos">
+					<a href="index.html" class="frame__demo">Demo 1</a>
+					<a href="index2.html" class="frame__demo">Demo 2</a>
+					<a href="index3.html" class="frame__demo">Demo 3</a>
+					<a href="index4.html" class="frame__demo">Demo 4</a><br/>
+					<a href="index-icosahedron.html" class="frame__demo">Icosahedron</a>
+					<a href="index-heart.html" class="frame__demo">Heart</a>
+					<a href="index-egg.html" class="frame__demo frame__demo--current">Egg</a>
+					<a href="index-brain.html" class="frame__demo">Brain</a>
+				</div>
+			</div><!-- /frame -->
+		</main>
+		<script src="js/egg.js"></script>
+		<script>
+			let animation = new explosion.default(
+				'container', // id of DOM el
+				{
+					surface: 'f5ebc8',
+					inside: 'f3ae07',
+					background: '151616',
+					onLoad: () => {
+		                document.body.classList.remove('loading');
+		            }
+				}
+			);
+
+			let targetMouseX = 0, mouseX = 0, ta = 0;
+			const sign = function(n) { return n === 0 ? 1 : n/Math.abs(n); };
+			document.addEventListener('mousemove',(e) => {
+			  targetMouseX = 2*(e.clientX - animation.width/2)/animation.width;
+			});
+
+			document.addEventListener('touchmove',(e) => {
+			  targetMouseX = ( e.touches[0].clientX / animation.width ) * 2 - 1;
+			});
+
+			animation.camera.position.y = 2;
+			animation.camera.position.z = 3;
+			function draw(){
+				if(animation){
+					mouseX += (targetMouseX - mouseX)*0.05;
+					ta = Math.abs(mouseX);
+					animation.settings.progress = ta/2;
+					animation.scene.rotation.y = Math.PI/2 - ta*(2 - ta)*Math.PI * sign(mouseX);
+					animation.camera.position.z = 3 + 3*ta;
+
+				}
+				window.requestAnimationFrame(draw);
+			}
+			draw() 
+
+		</script>
+	</body>
+</html>

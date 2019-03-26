@@ -1,0 +1,90 @@
+.pater {
+	position: absolute;
+	top: 0px;
+	left: 12rem;
+	width: 454px;
+	height: 200px;
+	pointer-events: none;
+	display: none;
+}
+.pater::before {
+	content: 'Our Sponsor';
+	position: absolute;
+	z-index: 100;
+	font-size: 0.75rem;
+	left: 4rem;
+	top: 7px;
+	color: #606060;
+}
+.pater, .pater:hover {
+	color: #969696;
+}
+.pater__bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.pater__bg path {
+	pointer-events: auto;
+}
+.pater__img {
+	width: 26%;
+	height: 25%;
+	left: 16%;
+	top: 20px;
+	background: url(airtable.svg) no-repeat 50% 50%;
+	position: absolute;
+	background-size: 100%;
+}
+.pater__title {
+	position: relative;
+	font-size: 0.95rem;
+	margin: 5rem 0 0 6.25rem;
+}
+.pater__description {
+	margin: 0.75rem 6rem 0 7rem;
+	position: relative;
+	font-size: 0.85rem;
+}
+.pater__text {
+	width: calc(100% - 130px);
+}
+.pater__deco {
+	float: left;
+	shape-outside: polygon(0px 0px, 4px 111px, 62px 110px);
+	height: 100px;
+	width: 62px;
+}
+.pater__deco--right {
+	float: right;
+	shape-outside: polygon(61px 0px, 3px 100px, 60px 100px);
+}
+.pater__remove {
+	color: #4a4a4a;
+	background: none;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: 6px;
+	right: 35px;
+	z-index: 100;
+	font-size: 1.5rem;
+	pointer-events: auto;
+}
+.pater__remove:hover,
+.pater__remove:focus {
+	color: #fff;
+	outline: none;
+}
+
+@media screen and (min-width: 53em) {
+	.pater-mobile {
+		display: none;
+	}
+	.pater {
+		display: block;
+	}
+}

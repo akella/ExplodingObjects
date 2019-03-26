@@ -4,21 +4,19 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Exploding 3D Objects | Demo 1 | Codrops</title>
-		<meta name="description" content="A set of 3D objects made with WebGL that fly into pieces." />
-		<meta name="keywords" content="webgl, 3d, objects, exploding, shatter, fragment, animation, template, javascript" />
+		<meta name="description" content="An exploding objects effect made with three.js." />
+		<meta name="keywords" content="webgl, three.js, 3d, objects, exploding, shatter, fragment, animation, template, javascript" />
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="favicon.ico">
 		<link rel="stylesheet" href="https://use.typekit.net/ldt4auk.css">
+		<link rel="stylesheet" type="text/css" href="pater/pater.css" />
 		<link rel="stylesheet" type="text/css" href="css/base.css" />
 		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
-		<!--script src="//tympanus.net/codrops/adpacks/analytics.js"></script-->
+		<script src="//tympanus.net/codrops/adpacks/analytics.js"></script>
 	</head>
 	<body class="demo-4 loading">
 		<main><div id="container"></div>
 			<div class="frame">
-				<div class="frame__deco">
-					<span class="frame__deco-inner">Amnesia - Bogotá</span>
-				</div>
 				<div class="frame__title-wrap">
 					<h1 class="frame__title">Exploding 3D Shapes</h1>
 					<div class="frame__links">
@@ -38,6 +36,24 @@
 					<a href="index-egg.html" class="frame__demo">Egg</a>
 					<a href="index-brain.html" class="frame__demo">Brain</a>
 				</div>
+				<a href="http://go.thoughtleaders.io/949520190326" class="pater-mobile" rel="nofollow" onClick="recordOutboundLink(this, 'Outbound Links', 'TL26032019');return false;">From our sponsor: Build MVPs faster than ever before</a>
+				<div class="frame__deco">
+					<span class="frame__deco-inner">Amnesia - Bogotá</span>
+				</div>
+				<a id="pater" href="http://go.thoughtleaders.io/949520190326" class="pater" rel="nofollow" onClick="recordOutboundLink(this, 'Outbound Links', 'TL26032019');return false;">
+					<button id="pater__remove" class="pater__remove" aria-label="Remove ad">×</button>
+					<svg class="pater__bg" width="529" height="188" viewBox="0 0 529 188" preserveAspectRatio="none" width="100%" height="100%" aria-hidden="true">
+						<path fill="#080806" d="M29 34l123.39 154 112.39-14.79L394.6 159.1l70.64-86.03L529 0H29z"/>
+						<path fill="#4A4A4A" d="M137.84 169.83l239.07-8.62L529 0 394.6 159.1 152.39 188 0 0h29z"/>
+					</svg>
+					<div class="pater__img"></div>
+					<h3 class="pater__title">Build MVPs faster than ever before</h3>
+					<p class="pater__description">
+						<span class="pater__deco pater__deco--left"></span>
+						<span class="pater__deco pater__deco--right"></span>
+						<span class="pater__text">Get your projects started with a flexible database and a dynamic API. Build quick and easy prototypes that your clients will love.</span>
+					</p>
+				</a>
 			</div><!-- /frame -->
 			<div class="content">
 				<div class="content__item">
@@ -87,6 +103,7 @@
 				</div>
 			</div>
 		</main>
+		<script src="pater/pater.js"></script>
 		<script src="js/brain.js"></script>
 		<script src="js/TweenMax.min.js"></script>
 		<script src="js/charming.min.js"></script>
